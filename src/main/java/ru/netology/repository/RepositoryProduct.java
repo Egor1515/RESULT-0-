@@ -5,9 +5,10 @@ import ru.netology.manager.ProductManager;
 
 public class RepositoryProduct {
 
+    public RuntimeException ex = new RuntimeException();
     public Product[] products = new Product[0];
-    public RepositoryProduct repository = new RepositoryProduct();
-    public ProductManager manager = new ProductManager(repository);
+    private RepositoryProduct repository;
+    public ProductManager manager = new ProductManager(null);
 
 
     public void save(Product product) {
@@ -21,9 +22,11 @@ public class RepositoryProduct {
 
     }
 
-    public void removeById(int id) {
-//        for (Product product : products)
-//            if (manager.matchesInt(product, id)) {
+    public void removeById(int id) throws NotFoundException {
+        if (manager.findById(id) == null) {
+            throw new NotFoundException("нет такого Id");
+        }
+
         int length = products.length - 1;
         Product[] tmp = new Product[length];
         int index = 0;
@@ -36,7 +39,6 @@ public class RepositoryProduct {
         }
 
     }
-
 
 
     public Product[] findAll() {

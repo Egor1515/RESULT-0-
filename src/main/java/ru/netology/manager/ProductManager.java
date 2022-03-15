@@ -1,12 +1,13 @@
 package ru.netology.manager;
 
 import ru.netology.domain.Product;
+import ru.netology.repository.NotFoundException;
 import ru.netology.repository.RepositoryProduct;
 
 public class ProductManager {
 
 
-    private final RepositoryProduct repository;
+    public RepositoryProduct repository;
 
 
 
@@ -45,6 +46,11 @@ public class ProductManager {
             }
         }
         return null;
+    }
+    public void removeById(int id) throws NotFoundException {
+        if( findById(id) == null){
+            throw new NotFoundException("Нет Id");
+        }
     }
 
 
