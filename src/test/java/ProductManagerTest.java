@@ -1,8 +1,6 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Product;
 import ru.netology.manager.ProductManager;
-import ru.netology.repository.NotFoundException;
 import ru.netology.repository.RepositoryProduct;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,8 +34,7 @@ class ProductManagerTest {
 
         repository.save(first);
         boolean actual = manager.matches(first, "ABC");
-        boolean expected = true;
-        assertEquals(expected, actual);
+        assertTrue( actual);
 
     }
 
@@ -46,16 +43,6 @@ class ProductManagerTest {
         manager.add(first);
         Product[] expected = {first};
         assertArrayEquals(expected, repository.findAll());
-    }
-
-    @Test
-    void shouldRemoveById() throws NotFoundException {
-        repository.save(forth);
-        repository.save(third);
-        repository.removeById(3);
-        Product[] expected = {forth};
-        assertArrayEquals(expected, repository.findAll());
-
     }
 
     @Test
@@ -68,6 +55,16 @@ class ProductManagerTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    void shouldSearchByTextNull() {
+        repository.save(first);
+        repository.save(second);
+        repository.save(third);
+
+        Product[] actual = manager.searchBy("Abc");
+        assertArrayEquals(null, actual);
+    }
+
 
     @Test
     void shouldFindById() {
@@ -75,7 +72,7 @@ class ProductManagerTest {
         repository.save(second);
         repository.save(third);
         Product expected = first;
-        Product actual = manager.findById(1);
+        Product actual = repository.findById(1);
         assertEquals(expected, actual);
     }
 
@@ -86,7 +83,7 @@ class ProductManagerTest {
         repository.save(first);
         repository.save(second);
         repository.save(third);
-        Product actual = manager.findById(1);
+        Product actual =repository.findById(1);
         assertNull(actual);
     }
 
@@ -96,33 +93,9 @@ class ProductManagerTest {
         Product second = new Product(2, "ABC", 111);
         repository.save(first);
         repository.save(second);
-        Product actual = manager.findById(2);
+        Product actual = repository.findById(2);
         assertEquals(first, actual);
     }
-
-    @Test
-    void shouldThrowException() {
-        Product first = new Product(1, "ABC", 1111);
-        Product second = new Product(2, "ABC", 111);
-        repository.save(first);
-        repository.save(second);
-
-        Assertions.assertThrows(RuntimeException.class, () -> repository.removeById(3));
-
-    }
-    @Test
-    void shouldNotThrowException() {
-        Product first = new Product(1, "ABC", 1111);
-        Product second = new Product(2, "ABC", 111);
-        repository.save(first);
-        repository.save(second);
-
-        Assertions.assertThrows(NotFoundException.class, () -> manager.removeById(3));
-
-    }
-
-
-
 
 
 }

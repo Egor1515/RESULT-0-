@@ -1,15 +1,12 @@
 package ru.netology.repository;
 
 import ru.netology.domain.Product;
-import ru.netology.manager.ProductManager;
 
 public class RepositoryProduct {
-
-    public RuntimeException ex = new RuntimeException();
     public Product[] products = new Product[0];
-    private RepositoryProduct repository;
-    public ProductManager manager = new ProductManager(null);
 
+    public RepositoryProduct() {
+    }
 
     public void save(Product product) {
         int length = products.length + 1;
@@ -18,38 +15,26 @@ public class RepositoryProduct {
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = product;
         products = tmp;
+    }
+
+    public boolean matchesInt(Product product, int number) {
+        return product.getId() == number;
 
 
     }
 
-    public void removeById(int id) throws NotFoundException {
-        if (manager.findById(id) == null) {
-            throw new NotFoundException("нет такого Id");
-        }
-
-        int length = products.length - 1;
-        Product[] tmp = new Product[length];
-        int index = 0;
-        for (Product product : products) {
-            if (product.getId() != id) {
-                tmp[index] = product;
-                index++;
+    public Product findById(int id) {
+        for (Product product : findAll()) {
+            if (matchesInt(product, id)) {
+                return product;
             }
-            products = tmp;
         }
-
+        return null;
     }
-
 
     public Product[] findAll() {
         return products;
     }
 
-    public RepositoryProduct(Product[] products) {
-        this.products = products;
-    }
-
-    public RepositoryProduct() {
-    }
 }
 
