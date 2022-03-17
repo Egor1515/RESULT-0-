@@ -52,7 +52,7 @@ class ProductManagerTest {
     void shouldRemoveById() throws NotFoundException {
         repository.save(forth);
         repository.save(third);
-        repository.removeById(3);
+        repository.removeById(4);
         Product[] expected = {forth};
         assertArrayEquals(expected, repository.findAll());
 
