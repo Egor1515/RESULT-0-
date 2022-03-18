@@ -34,7 +34,7 @@ class ProductManagerTest {
 
         repository.save(first);
         boolean actual = manager.matches(first, "ABC");
-        assertTrue( actual);
+        assertTrue(actual);
 
     }
 
@@ -62,7 +62,7 @@ class ProductManagerTest {
         repository.save(third);
 
         Product[] actual = manager.searchBy("Abc");
-        assertArrayEquals(null, actual);
+        assertArrayEquals(new Product[0], actual);
     }
 
 
@@ -83,8 +83,8 @@ class ProductManagerTest {
         repository.save(first);
         repository.save(second);
         repository.save(third);
-        Product actual =repository.findById(1);
-        assertNull(actual);
+        Product actual = repository.findById(1);
+        assertEquals(null, actual);
     }
 
     @Test

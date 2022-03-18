@@ -26,8 +26,7 @@ public class ProductManager {
                 System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = product;
                 result = tmp;
-            } else {
-                return null;
+
             }
         }
         return result;
