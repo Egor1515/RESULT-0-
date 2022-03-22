@@ -115,16 +115,5 @@ class ProductManagerTest {
 
     }
 
-    @Test
-    void shouldNotThrowException() {
-        Product first = new Product(1, "ABC", 1111);
-        Product second = new Product(2, "ABC", 111);
-        manager.save(first);
-        manager.save(second);
-
-        Assertions.assertThrows(NotFoundException.class, () -> manager.removeById(3));
-
-    }
-
 
 }

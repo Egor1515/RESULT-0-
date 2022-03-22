@@ -8,6 +8,9 @@ public class ProductManager {
 
     public Product[] products = new Product[0];
 
+    public ProductManager(Object o) {
+    }
+
     public void add(Product product) {
         save(product);
     }
