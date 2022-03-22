@@ -7,6 +7,7 @@ public class ProductManager {
 
 
     public RepositoryProduct repository;
+    public Product product = new Product();
 
 
     public ProductManager(RepositoryProduct repository) {
@@ -38,6 +39,7 @@ public class ProductManager {
 
 
     }
-
-
+    public boolean matches( String search) {
+        return product.getName().contains(search);
+    }
 }
