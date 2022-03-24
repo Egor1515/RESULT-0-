@@ -30,11 +30,11 @@ public class Smartphone extends Product {
     }
 
 
-    public boolean matchesSmart(String search) {
+    public boolean matches(String search) {
         if (super.matches(search)) {
             return true;
         }
-        return producer.contains(search);
+        return getProducer().contains(search);
     }
 
 
