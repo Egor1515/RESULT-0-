@@ -29,18 +29,14 @@ public class Smartphone extends Product {
     public Smartphone() {
     }
 
-    public boolean matches(Product product, String search) {
-        return producer.contains(search);
-    }
 
-    public boolean matches(String search) {
+    public boolean matchesSmart(String search) {
         if (super.matches(search)) {
             return true;
         }
-        if (producer.contains(search)) {
-            return true;
-        }
-        return false;
+        return producer.contains(search);
     }
+
+
 
 }

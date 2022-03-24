@@ -24,19 +24,11 @@ public class Book extends Product {
         this.author = author;
     }
 
-    public boolean matches(Product product, String search) {
-        return author.contains(search);
-    }
-
-    public boolean matches(String search) {
+    public boolean matchesBook(String search) {
         if (super.matches(search)) {
             return true;
         }
-        if (author.contains(search)) {
-            return true;
-        } else {
-            return false;
-        }
+        return author.contains(search);
     }
 }
 

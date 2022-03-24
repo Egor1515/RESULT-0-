@@ -17,21 +17,6 @@ public class RepositoryProduct {
         products = tmp;
     }
 
-    public boolean matchesInt(Product product, int number) {
-        return product.getId() == number;
-
-
-    }
-
-    public Product findById(int id) {
-        for (Product product : findAll()) {
-            if (matchesInt(product, id)) {
-                return product;
-            }
-        }
-
-        return null;
-    }
 
     public Product[] findAll() {
         return products;
