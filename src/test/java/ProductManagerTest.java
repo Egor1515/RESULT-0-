@@ -4,13 +4,14 @@ import ru.netology.domain.Product;
 import ru.netology.manager.ProductManager;
 import ru.netology.repository.NotFoundException;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
 
 
-    public ProductManager manager = new ProductManager(null);
+    public ProductManager manager = new ProductManager();
+
+
     Product first = new Product(1, "ABC", 1111);
     Product second = new Product(2, "ABC", 111);
     Product third = new Product(3, "ABC", 11);
