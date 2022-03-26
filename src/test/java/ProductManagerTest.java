@@ -5,25 +5,27 @@ import ru.netology.domain.Smartphone;
 import ru.netology.manager.ProductManager;
 import ru.netology.repository.RepositoryProduct;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
 
     public RepositoryProduct repository = new RepositoryProduct();
     public ProductManager manager = new ProductManager(repository);
 
-    Product Hello = new Book(1, "Book", 100, "Bondar");
-    Product Bye = new Book(2, "Book", 100, "Bondar");
-    Product SmartOne = new Smartphone(1, "NY", 1000, "Sony");
-    Product SmartTwo = new Smartphone(2, "NY", 1100, "Sony");
+    Product product = new Product();
+
+    Product book = new Book(1, "Book", 100, "Bondar");
+    Product book1 = new Book(2, "Book", 100, "Bondar");
+    Product smart = new Smartphone(1, "NY", 1000, "Sony");
+    Product smart1 = new Smartphone(2, "NY", 1100, "Sony");
 
 
     @Test
     void shouldBook() {
 
-        repository.save(Hello);
+        repository.save(book);
         repository.findAll();
-        Product[] expected = {Hello};
+        Product[] expected = {book};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
 
@@ -31,30 +33,30 @@ class ProductManagerTest {
 
     @Test
     void shouldSearchByBook() {
-        repository.save(Hello);
+        repository.save(book);
 
-        Product[] expected = {Hello};
-        Product[] actual = manager.searchByBook("Bondar");
+        Product[] expected = {book};
+        Product[] actual = manager.searchBy("Bondar");
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldSearchByBookNone() {
-        repository.save(Hello);
+        repository.save(book);
 
         Product[] expected = new Product[0];
-        Product[] actual = manager.searchByBook("Sony");
+        Product[] actual = manager.searchBy("Sony");
 
         assertArrayEquals(expected, actual);
     }
     @Test
     void shouldSearchByBookMany() {
-        repository.save(Hello);
-        repository.save(Bye);
+        repository.save(book);
+        repository.save(book1);
 
-        Product[] expected = {Hello,Bye};
-        Product[] actual = manager.searchByBook("Bondar");
+        Product[] expected = {book,book1};
+        Product[] actual = manager.searchBy("Bondar");
 
 
         assertArrayEquals(expected, actual);
@@ -63,21 +65,21 @@ class ProductManagerTest {
 
     @Test
     void shouldSearchBySmart() {
-        repository.save(SmartOne);
+        repository.save(smart);
 
-        Product[] expected = {SmartOne};
-        Product[] actual =manager.searchBySmart("Sony");
+        Product[] expected = {smart};
+        Product[] actual =manager.searchBy("Sony");
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldSearchBySmartNone() {
-        repository.save(SmartOne);
+        repository.save(smart);
 
 
         Product[] expected = new Product[0];
-        Product[] actual = manager.searchBySmart("qweqweondar");
+        Product[] actual = manager.searchBy("qweqweondar");
 
         assertArrayEquals(expected, actual);
 
@@ -86,11 +88,44 @@ class ProductManagerTest {
     @Test
 
     void shouldFindMany(){
-        repository.save(SmartOne);
-        repository.save(SmartTwo);
-        Product[] expected = {SmartOne,SmartTwo};
-        Product[] actual = manager.searchBySmart("Sony");
+        repository.save(smart);
+        repository.save(smart1);
+        Product[] expected = {smart,smart1};
+        Product[] actual = manager.searchBy("Sony");
 
         assertArrayEquals(expected, actual);
+    }
+    @Test
+
+    void shouldMatchBook(){
+
+        repository.save(book);
+
+        assertTrue(book.matches("Bondar"));
+    }
+    @Test
+
+    void shouldMatchBookNone(){
+
+        repository.save(book);
+
+        assertFalse(book.matches("sondar"));
+    }
+    @Test
+
+    void shouldMatchSmart(){
+
+        repository.save(smart1);
+
+        assertTrue(smart.matches("Sony"));
+    }
+    @Test
+
+    void shouldMatchSmartNone(){
+
+        repository.save(smart1);
+
+
+        assertFalse(smart.matches("ONE"));
     }
 }
